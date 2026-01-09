@@ -1,0 +1,24 @@
+name: Keep Hugging Face Spaces Alive
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Cada 15 minutos
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+jobs:
+  ping-spaces:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Gemma Server
+        run: |
+          echo "🔄 Haciendo ping a Gemma Server..."
+          curl -I -m 30 https://alejandrott24-mi-gemma-servidor.hf.space/ || echo "⚠️ Gemma no respondió"
+          
+      - name: Ping Piper TTS Server
+        run: |
+          echo "🔄 Haciendo ping a Piper TTS..."
+          curl -I -m 30 https://alejandrott24-piper-tts-server.hf.space/ || echo "⚠️ Piper no respondió"
+          
+      - name: Completado
+        run: echo "✅ Ping completado a todos los Spaces"

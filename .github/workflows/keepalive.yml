@@ -12,7 +12,11 @@ jobs:
       - name: Ping Gemma Server
         run: |
           echo "🔄 Haciendo ping a Gemma Server..."
-          curl -X GET -m 30 "https://alejandrott24-mi-gemma-servidor.hf.space/preguntar?mensaje=ping" || echo "⚠️ Gemma no respondió"
+          # Primer ping más largo para despertar el Space
+          curl -X GET -m 120 "https://alejandrott24-mi-gemma-servidor.hf.space/preguntar?mensaje=ping" || echo "⚠️ Gemma no respondió en el primer intento"
+          # Segundo ping después de 10 segundos
+          sleep 10
+          curl -X GET -m 30 "https://alejandrott24-mi-gemma-servidor.hf.space/preguntar?mensaje=ping" || echo "⚠️ Gemma no respondió en el segundo intento"
           
       - name: Ping Piper TTS Server
         run: |
